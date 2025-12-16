@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Patas & Pelos | Banho & Tosa</title>
+  <meta name="description" content="Pet shop de banho e tosa com serviços modernos, preços claros e agendamento rápido no WhatsApp." />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#101a31;
+      --card2:#0f1830;
+      --text:#eaf0ff;
+      --muted:#a8b4d6;
+      --brand:#4fd1c5;
+      --brand2:#7c5cff;
+      --warn:#ffcc66;
+      --ok:#63e6a3;
+      --border:rgba(255,255,255,.12);
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1100px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% -10%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(900px 700px at 90% 10%, rgba(79,209,197,.28), transparent 55%),
+        radial-gradient(1000px 700px at 40% 120%, rgba(255,204,102,.15), transparent 50%),
+        var(--bg);
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:24px}
+    .pill{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:10px 14px; border:1px solid var(--border);
+      border-radius:999px; background:rgba(255,255,255,.05);
+      backdrop-filter: blur(8px);
+    }
+    .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--brand),var(--brand2))}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px; border-radius:14px; border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:var(--text); cursor:pointer;
+      transition:.2s transform, .2s background, .2s border;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.2)}
+    .btn.primary{
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      border:0;
+      box-shadow: 0 14px 35px rgba(124,92,255,.25);
+    }
+    .btn.primary:hover{transform:translateY(-2px)}
+    .btn.small{padding:10px 12px; border-radius:12px; font-size:14px}
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px; border-radius:999px; font-size:13px;
+      background:rgba(255,255,255,.06); border:1px solid var(--border);
+      color:var(--muted);
+    }
+    .tag b{color:var(--text)}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(14px);
+      background:rgba(11,18,32,.55);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:14px 24px;
+      max-width:var(--max); margin:0 auto;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:38px; height:38px; border-radius:14px;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      display:grid; place-items:center;
+      box-shadow: 0 18px 40px rgba(79,209,197,.18);
+      border:1px solid rgba(255,255,255,.14);
+    }
+    .menu{display:flex; gap:14px; align-items:center; flex-wrap:wrap}
+    .menu a{
+      color:var(--muted);
+      padding:10px 10px; border-radius:12px;
+      border:1px solid transparent;
+    }
+    .menu a:hover{color:var(--text); border-color:rgba(255,255,255,.12); background:rgba(255,255,255,.04)}
+    .navActions{display:flex; gap:10px; align-items:center}
+
+    /* Hero */
+    .hero{
+      padding:34px 0 10px;
+      display:grid; gap:22px;
+    }
+    .heroGrid{
+      display:grid; gap:22px;
+      grid-template-columns: 1.2fr .8fr;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .heroGrid{grid-template-columns:1fr}
+    }
+    .heroCard{
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border-radius: var(--radius2);
+      padding:26px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .heroCard:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 350px at 25% 25%, rgba(79,209,197,.22), transparent 55%),
+                  radial-gradient(700px 450px at 85% 10%, rgba(124,92,255,.20), transparent 55%);
+      pointer-events:none;
+    }
+    .heroInner{position:relative}
+    h1{
+      margin:14px 0 12px;
+      font-size:44px; line-height:1.05;
+      letter-spacing:-.8px;
+    }
+    @media (max-width: 560px){
+      h1{font-size:36px}
+    }
+    .lead{color:var(--muted); font-size:16px; line-height:1.6; max-width:55ch}
+    .heroCtas{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .heroBadges{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+
+    .aside{
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(16,26,49,.9), rgba(16,26,49,.65));
+      border-radius: var(--radius2);
+      padding:22px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .aside:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(500px 400px at 20% 0%, rgba(255,204,102,.14), transparent 60%),
+                  radial-gradient(600px 450px at 90% 30%, rgba(79,209,197,.12), transparent 55%);
+      pointer-events:none;
+    }
+    .asideInner{position:relative}
+    .quick{
+      display:grid; gap:10px; margin-top:14px;
+    }
+    .quick .row{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:12px 14px; border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+    }
+    .quick .row span{color:var(--muted)}
+    .kpi{
+      display:grid; gap:10px; margin-top:14px;
+      grid-template-columns:1fr 1fr;
+    }
+    .kpi .box{
+      padding:14px; border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+    }
+    .kpi .box b{display:block; font-size:18px}
+    .kpi .box small{color:var(--muted)}
+
+    /* Sections */
+    section{padding:34px 0}
+    .sectionHead{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap}
+    .sectionHead h2{margin:0; font-size:28px; letter-spacing:-.4px}
+    .sectionHead p{margin:0; color:var(--muted); max-width:65ch; line-height:1.6}
+
+    .grid3{display:grid; gap:14px; grid-template-columns:repeat(3,1fr); margin-top:18px}
+    @media (max-width: 920px){ .grid3{grid-template-columns:1fr} }
+
+    .card{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+    }
+    .card h3{margin:0 0 8px; font-size:18px}
+    .card p{margin:0; color:var(--muted); line-height:1.6}
+    .icon{
+      width:42px; height:42px; border-radius:16px;
+      background:linear-gradient(135deg, rgba(79,209,197,.22), rgba(124,92,255,.22));
+      border:1px solid rgba(255,255,255,.12);
+      display:grid; place-items:center;
+      margin-bottom:10px;
+    }
+
+    /* Pricing */
+    .pricingGrid{display:grid; gap:14px; grid-template-columns:1fr 1fr 1fr; margin-top:18px}
+    @media (max-width: 920px){ .pricingGrid{grid-template-columns:1fr} }
+
+    .priceCard{
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .priceCard.featured{
+      background:linear-gradient(135deg, rgba(79,209,197,.16), rgba(124,92,255,.18));
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 18px 60px rgba(124,92,255,.18);
+      transform: translateY(-2px);
+    }
+    .priceTop{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}
+    .priceCard h3{margin:0}
+    .price{font-size:34px; font-weight:900; letter-spacing:-.8px; margin:12px 0 8px}
+    .price small{font-size:14px; font-weight:600; color:var(--muted)}
+    .ul{margin:10px 0 16px; padding:0; list-style:none; display:grid; gap:10px}
+    .ul li{display:flex; gap:10px; color:var(--muted)}
+    .check{width:18px; height:18px; border-radius:6px; background:rgba(99,230,163,.18); border:1px solid rgba(99,230,163,.35); display:grid; place-items:center; flex:0 0 auto}
+    .note{color:var(--muted); font-size:13px; line-height:1.5}
+
+    /* Table */
+    .tableWrap{
+      margin-top:16px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius2);
+      overflow:hidden;
+      background:rgba(255,255,255,.03);
+    }
+    table{width:100%; border-collapse:collapse}
+    th,td{padding:14px 14px; text-align:left; border-bottom:1px solid rgba(255,255,255,.08)}
+    th{color:var(--muted); font-size:13px; letter-spacing:.2px; text-transform:uppercase}
+    td b{color:var(--text)}
+    tr:last-child td{border-bottom:none}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .badge.ok{border-color:rgba(99,230,163,.35); background:rgba(99,230,163,.12); color:#c9ffe4}
+    .badge.warn{border-color:rgba(255,204,102,.35); background:rgba(255,204,102,.12); color:#ffe7b8}
+
+    /* Testimonials + FAQ */
+    .grid2{display:grid; gap:14px; grid-template-columns:1fr 1fr; margin-top:18px}
+    @media (max-width: 920px){ .grid2{grid-template-columns:1fr} }
+
+    blockquote{margin:0; color:var(--muted); line-height:1.7}
+    .who{display:flex; align-items:center; gap:10px; margin-top:12px}
+    .avatar{
+      width:38px; height:38px; border-radius:14px;
+      background:linear-gradient(135deg, rgba(255,204,102,.25), rgba(79,209,197,.20));
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .who b{display:block}
+    .who small{display:block; color:var(--muted)}
+
+    details{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      border-radius: var(--radius);
+      padding:14px 14px;
+    }
+    summary{cursor:pointer; font-weight:700}
+    details p{margin:10px 0 0; color:var(--muted); line-height:1.6}
+
+    /* Contact */
+    .contactGrid{display:grid; gap:14px; grid-template-columns: .9fr 1.1fr; margin-top:18px}
+    @media (max-width: 920px){ .contactGrid{grid-template-columns:1fr} }
+
+    .form{
+      display:grid; gap:10px;
+    }
+    input,select,textarea{
+      width:100%; padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{min-height:110px; resize:vertical}
+    label{font-size:13px; color:var(--muted)}
+    .two{display:grid; gap:10px; grid-template-columns:1fr 1fr}
+    @media (max-width: 560px){ .two{grid-template-columns:1fr} }
+
+    footer{
+      padding:28px 0 46px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted);
+    }
+    .foot{display:flex; align-items:flex-start; justify-content:space-between; gap:18px; flex-wrap:wrap}
+    .foot small{color:var(--muted)}
+    .mini{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+
+    /* Floating WhatsApp */
+    .waFloat{
+      position:fixed; right:16px; bottom:16px; z-index:30;
+      border-radius:999px;
+      padding:12px 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(135deg, rgba(79,209,197,.20), rgba(124,92,255,.20));
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      display:flex; gap:10px; align-items:center;
+    }
+    .waFloat b{font-size:14px}
+    .waIcon{
+      width:34px; height:34px; border-radius:14px;
+      display:grid; place-items:center;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="logo">🐾</div>
+      <div>
+        Patas & Pelos<br><small style="color:var(--muted); font-weight:600">Banho • Tosa • Cuidados</small>
+      </div>
+    </div>
+
+    <nav class="menu" aria-label="Navegação">
+      <a href="#servicos">Serviços</a>
+      <a href="#precos">Preços</a>
+      <a href="#pacotes">Pacotes</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <div class="navActions">
+      <a class="btn small" href="#precos">Ver valores</a>
+      <a class="btn small primary" id="btnAgendarTop" href="#contato">Agendar</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="heroGrid">
+      <div class="heroCard">
+        <div class="heroInner">
+          <span class="pill"><span class="dot"></span> Agendamento rápido no WhatsApp • Atendimento com carinho</span>
+          <h1>Banho & Tosa com<br/>cara de <span style="background:linear-gradient(135deg,var(--brand),var(--brand2)); -webkit-background-clip:text; background-clip:text; color:transparent;">clínica premium</span> ✨</h1>
+          <p class="lead">
+            Um site claro, moderno e sem enrolação: você vê os serviços, entende os valores e agenda em segundos.
+            Seu pet sai limpinho, cheiroso e bem cuidado — do jeito certo.
+          </p>
+
+          <div class="heroCtas">
+            <a class="btn primary" id="btnAgendarHero" href="#contato">📲 Agendar agora</a>
+            <a class="btn" href="#servicos">Ver serviços</a>
+            <a class="btn" href="#pacotes">Ver pacotes</a>
+          </div>
+
+          <div class="heroBadges">
+            <span class="tag"><b>✓</b> Higiene e segurança</span>
+            <span class="tag"><b>✓</b> Produtos de qualidade</span>
+            <span class="tag"><b>✓</b> Tosa na tesoura</span>
+            <span class="tag"><b>✓</b> Banho terapêutico</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="aside" aria-label="Resumo rápido">
+        <div class="asideInner">
+          <h3 style="margin:0; font-size:18px;">Resumo rápido</h3>
+          <p style="margin:8px 0 0; color:var(--muted); line-height:1.6">
+            Veja horários, formas de pagamento e um preço base para referência.
+          </p>
+
+          <div class="quick">
+            <div class="row"><span>📍 Endereço</span><b>Seu bairro, sua cidade</b></div>
+            <div class="row"><span>🕒 Horário</span><b>Seg–Sáb • 08:00–18:00</b></div>
+            <div class="row"><span>💳 Pagamento</span><b>Pix • Cartão • Dinheiro</b></div>
+            <div class="row"><span>🚿 Banho (a partir de)</span><b>R$ 55</b></div>
+          </div>
+
+          <div class="kpi">
+            <div class="box"><b>+1200</b><small>pets atendidos</small></div>
+            <div class="box"><b>4,9★</b><small>média de avaliações</small></div>
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+            <span class="badge ok">✅ Ambiente higienizado</span>
+            <span class="badge warn">⚡ Vagas limitadas</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="sectionHead">
+      <div>
+        <h2>Serviços</h2>
+        <p>Escolha o que faz sentido para o seu pet. Se não souber, a gente recomenda o melhor combo.</p>
+      </div>
+      <a class="btn small" href="#contato">Quero indicação</a>
+    </div>
+
+    <div class="grid3">
+      <div class="card">
+        <div class="icon">🚿</div>
+        <h3>Banho Completo</h3>
+        <p>Banho com shampoo e condicionador, secagem, escovação e cheirinho final.</p>
+      </div>
+      <div class="card">
+        <div class="icon">✂️</div>
+        <h3>Tosa Higiênica</h3>
+        <p>Regiões íntimas, patinhas e barriga com cuidado e segurança.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🧼</div>
+        <h3>Hidratação</h3>
+        <p>Tratamento para pelo ressecado: maciez, brilho e redução de frizz.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🐶</div>
+        <h3>Tosa na Tesoura</h3>
+        <p>Acabamento mais natural e bonito, ideal para raças de pelo longo.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🦷</div>
+        <h3>Higiene Bucal</h3>
+        <p>Limpeza suave para ajudar a reduzir mau hálito e acúmulo superficial.</p>
+      </div>
+      <div class="card">
+        <div class="icon">💅</div>
+        <h3>Corte de Unhas</h3>
+        <p>Corte com cuidado, evitando desconforto e protegendo as patinhas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREÇOS (TABELA) -->
+  <section id="precos">
+    <div class="sectionHead">
+      <div>
+        <h2>Preços claros</h2>
+        <p>Valores base por porte. O preço final pode variar conforme pelagem (muito nós, excesso de subpelo, etc.).</p>
+      </div>
+      <span class="badge">📌 Dica: agende cedo para pegar os melhores horários</span>
+    </div>
+
+    <div class="tableWrap" role="region" aria-label="Tabela de preços">
+      <table>
+        <thead>
+          <tr>
+            <th>Serviço</th>
+            <th>Porte P</th>
+            <th>Porte M</th>
+            <th>Porte G</th>
+            <th>Observação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Banho completo</b></td>
+            <td>R$ 55</td>
+            <td>R$ 70</td>
+            <td>R$ 90</td>
+            <td><span class="badge ok">Inclui secagem</span></td>
+          </tr>
+          <tr>
+            <td><b>Banho + Tosa higiênica</b></td>
+            <td>R$ 75</td>
+            <td>R$ 95</td>
+            <td>R$ 120</td>
+            <td><span class="badge">Patinhas + íntima</span></td>
+          </tr>
+          <tr>
+            <td><b>Banho + Tosa máquina</b></td>
+            <td>R$ 95</td>
+            <td>R$ 120</td>
+            <td>R$ 160</td>
+            <td><span class="badge warn">depende da raça</span></td>
+          </tr>
+          <tr>
+            <td><b>Tosa na tesoura</b></td>
+            <td>R$ 110</td>
+            <td>R$ 150</td>
+            <td>R$ 190</td>
+            <td><span class="badge ok">acabamento premium</span></td>
+          </tr>
+          <tr>
+            <td><b>Hidratação</b></td>
+            <td>+ R$ 25</td>
+            <td>+ R$ 35</td>
+            <td>+ R$ 45</td>
+            <td><span class="badge">adicional ao banho</span></td>
+          </tr>
+          <tr>
+            <td><b>Corte de unhas</b></td>
+            <td>R$ 15</td>
+            <td>R$ 15</td>
+            <td>R$ 20</td>
+            <td><span class="badge">rápido</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note" style="margin-top:12px;">
+      * Se o pet estiver com muitos nós, pode ser necessário desembolo (avaliado na hora).
+    </p>
+  </section>
+
+  <!-- PACOTES -->
+  <section id="pacotes">
+    <div class="sectionHead">
+      <div>
+        <h2>Pacotes (economize)</h2>
+        <p>Ideal para manter a rotina em dia e o pet sempre cheiroso e bem cuidado.</p>
+      </div>
+      <a class="btn small" href="#contato">Quero um pacote</a>
+    </div>
+
+    <div class="pricingGrid">
+      <div class="priceCard">
+        <div class="priceTop">
+          <h3>Essencial</h3>
+          <span class="badge">Para rotina</span>
+        </div>
+        <div class="price">R$ 149 <small>/ mês</small></div>
+        <ul class="ul">
+          <li><span class="check">✓</span> 2 banhos completos</li>
+          <li><span class="check">✓</span> 1 corte de unhas</li>
+          <li><span class="check">✓</span> Escovação e finalização</li>
+        </ul>
+        <a class="btn" href="#contato">Selecionar</a>
+        <p class="note">Sugestão para porte P (ajuste conforme porte).</p>
+      </div>
+
+      <div class="priceCard featured">
+        <div class="priceTop">
+          <h3>Mais Pedido</h3>
+          <span class="badge ok">Recomendado</span>
+        </div>
+        <div class="price">R$ 219 <small>/ mês</small></div>
+        <ul class="ul">
+          <li><span class="check">✓</span> 2 banhos + tosa higiênica</li>
+          <li><span class="check">✓</span> Hidratação 1x/mês</li>
+          <li><span class="check">✓</span> Corte de unhas</li>
+          <li><span class="check">✓</span> Prioridade de agenda</li>
+        </ul>
+        <a class="btn primary" href="#contato">Quero esse</a>
+        <p class="note">Melhor custo-benefício para manter padrão de cuidado.</p>
+      </div>
+
+      <div class="priceCard">
+        <div class="priceTop">
+          <h3>Premium</h3>
+          <span class="badge">Pelo impecável</span>
+        </div>
+        <div class="price">R$ 299 <small>/ mês</small></div>
+        <ul class="ul">
+          <li><span class="check">✓</span> 3 banhos completos</li>
+          <li><span class="check">✓</span> 1 tosa (máquina ou tesoura*)</li>
+          <li><span class="check">✓</span> Hidratação + perfume pet</li>
+          <li><span class="check">✓</span> Check-up de pele e pelo</li>
+        </ul>
+        <a class="btn" href="#contato">Selecionar</a>
+        <p class="note">*Tosa na tesoura pode variar por porte/raça.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS + DEPOIMENTOS -->
+  <section id="depoimentos">
+    <div class="sectionHead">
+      <div>
+        <h2>Por que escolhem a gente</h2>
+        <p>Atendimento humano, ambiente limpo e cuidado real com o bem-estar do pet.</p>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="icon">🧡</div>
+        <h3>Cuidado sem pressa</h3>
+        <p>Trabalhamos com calma para reduzir estresse e garantir um resultado bonito.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🧴</div>
+        <h3>Produtos certos</h3>
+        <p>Opções para pele sensível, antialérgicos e tratamentos para hidratação.</p>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:14px;">
+      <div class="card">
+        <blockquote>
+          “Meu Spitz saiu PERFEITO. Cheiroso, pelo bem penteado e sem estresse. Atendimento top!”
+        </blockquote>
+        <div class="who">
+          <div class="avatar"></div>
+          <div><b>Ana P.</b><small>Cliente há 8 meses</small></div>
+        </div>
+      </div>
+      <div class="card">
+        <blockquote>
+          “Finalmente um lugar que explica tudo e o preço é claro. Agendei pelo WhatsApp rapidinho.”
+        </blockquote>
+        <div class="who">
+          <div class="avatar"></div>
+          <div><b>Marcos R.</b><small>Cliente recorrente</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sectionHead">
+      <div>
+        <h2>Dúvidas rápidas</h2>
+        <p>Respostas diretas para você agendar com tranquilidade.</p>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <details>
+        <summary>Quanto tempo leva?</summary>
+        <p>Em média 1h a 2h, dependendo do porte e da pelagem. A gente avisa no agendamento.</p>
+      </details>
+      <details>
+        <summary>Precisa marcar horário?</summary>
+        <p>Sim. Assim você evita espera e garante o melhor horário. Agende no WhatsApp.</p>
+      </details>
+      <details>
+        <summary>Meu pet é agitado. Vocês atendem?</summary>
+        <p>Sim! Mas fazemos uma avaliação e, se necessário, ajustamos o tempo e o tipo de serviço.</p>
+      </details>
+      <details>
+        <summary>Vocês atendem gatos?</summary>
+        <p>Se você quiser, podemos incluir. (Se não atender, apague essa pergunta.)</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="sectionHead">
+      <div>
+        <h2>Agende em 30 segundos</h2>
+        <p>Preencha e clique em “Enviar no WhatsApp”. A mensagem já vai pronta.</p>
+      </div>
+      <span class="badge ok">📲 Resposta rápida</span>
+    </div>
+
+    <div class="contactGrid">
+      <div class="card">
+        <h3 style="margin:0 0 10px;">Contato</h3>
+        <p style="margin:0; color:var(--muted); line-height:1.6">
+          <b>WhatsApp:</b> (00) 00000-0000<br/>
+          <b>Endereço:</b> Rua Exemplo, 123 • Sua Cidade<br/>
+          <b>Horário:</b> Seg–Sáb • 08:00–18:00
+        </p>
+
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" id="btnWhats1" href="#">📲 Chamar no WhatsApp</a>
+          <a class="btn" href="#precos">Ver preços</a>
+        </div>
+
+        <p class="note" style="margin-top:12px;">
+          * Troque o número do WhatsApp no script no final do arquivo (bem fácil).
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 10px;">Formulário</h3>
+        <form class="form" id="formAgendar">
+          <div class="two">
+            <div>
+              <label for="nome">Seu nome</label>
+              <input id="nome" name="nome" placeholder="Ex: Lucas" required />
+            </div>
+            <div>
+              <label for="pet">Nome do pet</label>
+              <input id="pet" name="pet" placeholder="Ex: Thor" required />
+            </div>
+          </div>
+
+          <div class="two">
+            <div>
+              <label for="porte">Porte</label>
+              <select id="porte" name="porte" required>
+                <option value="" selected disabled>Selecione</option>
+                <option>P</option>
+                <option>M</option>
+                <option>G</option>
+              </select>
+            </div>
+            <div>
+              <label for="servico">Serviço</label>
+              <select id="servico" name="servico" required>
+                <option value="" selected disabled>Selecione</option>
+                <option>Banho completo</option>
+                <option>Banho + Tosa higiênica</option>
+                <option>Banho + Tosa máquina</option>
+                <option>Tosa na tesoura</option>
+                <option>Hidratação (adicional)</option>
+                <option>Corte de unhas</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="two">
+            <div>
+              <label for="dia">Dia (preferência)</label>
+              <input id="dia" name="dia" placeholder="Ex: sexta-feira" />
+            </div>
+            <div>
+              <label for="horario">Horário (preferência)</label>
+              <input id="horario" name="horario" placeholder="Ex: 14:00" />
+            </div>
+          </div>
+
+          <div>
+            <label for="obs">Observações</label>
+            <textarea id="obs" name="obs" placeholder="Ex: pele sensível, muitos nós, primeira vez..."></textarea>
+          </div>
+
+          <button class="btn primary" type="submit">📨 Enviar no WhatsApp</button>
+          <small style="color:var(--muted); line-height:1.6">
+            Ao enviar, você concorda em compartilhar essas informações apenas para agendamento.
+          </small>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot">
+      <div>
+        <div class="mini">
+          <div class="logo" style="width:34px;height:34px;border-radius:14px;">🐾</div>
+          <b style="color:var(--text)">Patas & Pelos</b>
+          <small>Banho & Tosa</small>
+        </div>
+        <small>© <span id="year"></span> • Todos os direitos reservados.</small>
+      </div>
+
+      <div class="mini">
+        <a class="btn small" href="#inicio">Voltar ao topo</a>
+        <a class="btn small" href="#contato">Agendar</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- Floating WhatsApp -->
+<a class="waFloat" id="waFloat" href="#" aria-label="Chamar no WhatsApp">
+  <span class="waIcon">💬</span>
+  <div>
+    <b>Agendar agora</b><br/>
+    <small style="color:var(--muted)">Resposta rápida</small>
+  </div>
+</a>
+
+<script>
+  // ========= CONFIG RÁPIDA =========
+  // Troque para o seu número com DDI + DDD (Brasil: 55). Ex: 5511999999999
+  const WHATSAPP_NUMBER = "5500000000000";
+
+  function waLink(msg){
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  }
+
+  // Botões genéricos de WhatsApp
+  const baseMsg = "Olá! Quero agendar Banho & Tosa. Pode me ajudar? 🐾";
+  document.getElementById("btnWhats1").href = waLink(baseMsg);
+  document.getElementById("waFloat").href = waLink(baseMsg);
+
+  // Ano no rodapé
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Form -> WhatsApp
+  document.getElementById("formAgendar").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const nome = document.getElementById("nome").value.trim();
+    const pet = document.getElementById("pet").value.trim();
+    const porte = document.getElementById("porte").value;
+    const servico = document.getElementById("servico").value;
+    const dia = document.getElementById("dia").value.trim();
+    const horario = document.getElementById("horario").value.trim();
+    const obs = document.getElementById("obs").value.trim();
+
+    const msg =
+`Olá! Quero agendar um serviço 🐾
+
+👤 Nome: ${nome}
+🐶 Pet: ${pet}
+📏 Porte: ${porte}
+🧾 Serviço: ${servico}
+📅 Dia: ${dia || "—"}
+🕒 Horário: ${horario || "—"}
+📝 Obs: ${obs || "—"}
+
+Pode me passar os horários disponíveis?`;
+
+    window.open(waLink(msg), "_blank");
+  });
+</script>
+</body>
+</html>
